@@ -16,7 +16,7 @@ $oldTasks = $sunday->addTask($defaultTask);
 $week->setDay($sunday);
 
 
-
+$end = 0;
 do{	
 	$dayName = in("\nWeekday:", $handle);
 	if($dayName == '0'){
@@ -29,12 +29,9 @@ do{
 		echo "\nWrong Weekday!!!!!!!!!!!!!" . PHP_EOL;
 		continue;
 	}
-	$task = ucfirst(strtolower(in("Task: ", $handle)));
-	$newTask = new Task($task);
+	$newTask = new Task(in("Task: ", $handle));
 	$day->addTask($newTask);
 	$week->setDay($day);
 	
-	print_r($week->getDays());
-
 }while(!$end);
-
+print_r($week->getDays());
