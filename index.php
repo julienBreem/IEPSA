@@ -2,29 +2,39 @@
 require_once 'includes/functions.php';
 require_once 'includes/classes/task.php';
 require_once 'includes/classes/week.php';
+require_once 'includes/classes/day.php';
 
-$handle = fopen ("php://stdin","r");
 
-out("Welcome in your taskManager:");
+$handle = fopen("php://stdin","r");
 
 $week = new Week();
-$defaultTask = new Task('faire le ménage');
+$defaultTask = new Task('faire le menage');
 
-addTaskToDayOfWeek($week,'sunday', $defaultTask);
 
-do{
-	
-	$task = new Task();	
-	$day = in("Plz enter the day of the week:", $handle);	
-	if(!ISSET($week[$day])){
-		out("WROOOOOONG!!");
+$sunday = $week->getDayByName(Day::SUNDAY);
+$oldTasks = $sunday->addTask($defaultTask);
+$week->setDay($sunday);
+
+
+
+do{	
+	$dayName = in("\nWeekday:", $handle);
+	if($dayName == '0'){
+		echo "\nGood bye" . PHP_EOL;
+		$end = 1;
 		continue;
-	}	
-	$task->setName(in('Plz enter tha task name', $handle));
-	$week[$day][] = $task;
-	print_r($week);
-	out("----------");
+	}
+	$day = $week->getDayByName($dayName);
+	if(empty($day)){
+		echo "\nWrong Weekday!!!!!!!!!!!!!" . PHP_EOL;
+		continue;
+	}
+	$task = ucfirst(strtolower(in("Task: ", $handle)));
+	$newTask = new Task($task);
+	$day->addTask($newTask);
+	$week->setDay($day);
 	
-} while(!empty($day) && !empty($task->getName()));
+	print_r($week->getDays());
 
-out("a bientot");
+}while(!$end);
+
