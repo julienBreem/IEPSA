@@ -1,30 +1,32 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Stéphane
+ * Date: 07-12-17
+ * Time: 22:25
+ */
+
+require_once 'task.php';
+//require_once '../functions.php';
 
 class Day {
-	
-	const MONDAY = 'monday';
-	const TUESDAY = 'tuesday';
-	const WEDNESDAY = 'wednesday';
-	const THURSDAY = 'thursday';
-	const FRIDAY = 'friday';
-	const SATURDAY = 'saturday';
-	const SUNDAY = 'sunday';	
-	
-	private $name;
-	private $tasks;	
-	
-	public function __construct($name){
-		$this->setName($name);
-		$this->tasks = [];
+	const MONDAY = "Lundi";
+	const TUESDAY = "Mardi";
+	const WEDNESDAY = "Mercredi";
+	const THURSDAY = "Jeudi";
+	const FRIDAY = "Vendredi";
+	const SATURDAY = "Samedi";
+	const SUNDAY = "Dimanche";
+
+	protected $dayName;
+	protected $tasksOfDay;
+
+	public function getDayName(): string {
+		return $this->dayName;
 	}
-	
-	public function addTask(Task $task){
-		$this->tasks[] = $task;
-	}
-	
-	public function setName($name){
-		$name = strtolower($name);
-		switch($name){
+
+	public function setDayName($dayName): void {
+		switch (lowerWithFirstLetterUpper($dayName)) {
 			case self::MONDAY:
 			case self::TUESDAY:
 			case self::WEDNESDAY:
@@ -32,25 +34,57 @@ class Day {
 			case self::FRIDAY:
 			case self::SATURDAY:
 			case self::SUNDAY:
-				$this->name = $name;
+				$this->dayName = $dayName;
 				break;
 			default:
 				break;
 		}
 	}
-	
-	public function getName(){
-		return $this->name;
+
+	public function addTask(string $taskName, $taskPriority): void {
+		$this->tasksOfDay[] = new Task($taskName, $taskPriority);
 	}
-	
-	public function setTasks($tasks){
-		$this->tasks =  $tasks;
+
+	public function getNumberOfTask(): int {
+		return count($this->tasksOfDay);
 	}
-	
-	public function getTasks(){
-		return $this->tasks;
+
+	public function recapDay(): string {
+		if(count($this->tasksOfDay)>0) {
+			$recap = $this->dayName . ":" . PHP_EOL;
+			foreach ($this->tasksOfDay as $task) {
+				if ($task instanceof Task) {
+					$recap .= "\t" . $task->recapTask() . PHP_EOL;
+				}
+			}
+			return $recap;
+		}
+		else {
+			return "";
+		}
 	}
-	
-	
-	
+
+	public function getTask($index) {
+		if ($index < $this->getNumberOfTask()) {
+			return $this->tasksOfDay[$index];
+		}
+		return null;
+	}
+
+	public function equals(Day $day) {
+		$sameTask = true;
+		if ($this->getNumberOfTask() == $day->getNumberOfTask()) {
+			for ($i=0; $i<$this->getNumberOfTask() && $sameTask; ++$i) {
+				if (!$this->tasksOfDay[$i]->equals($day->getTask($i))) {
+					$sameTask = false;
+				}
+			}
+		}
+		return $this->dayName == $day->getDayName() && $sameTask;
+	}
+
+	public function __construct(string $name) {
+		$this->setDayName($name);
+		$this->tasksOfDay = array();
+	}
 }
