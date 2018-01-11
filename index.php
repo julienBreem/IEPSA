@@ -17,15 +17,18 @@ $week->setDay($sunday);
 
 
 $end = 0;
-do{	
+do
+    {
 	$dayName = in("\nWeekday:", $handle);
-	if($dayName == '0'){
+	if($dayName == '0')
+	{
 		echo "\nGood bye" . PHP_EOL;
 		$end = 1;
 		continue;
 	}
 	$day = $week->getDayByName($dayName);
-	if(empty($day)){
+	if(empty($day))
+	{
 		echo "\nWrong Weekday!!!!!!!!!!!!!" . PHP_EOL;
 		continue;
 	}
@@ -33,5 +36,6 @@ do{
 	$day->addTask($newTask);
 	$week->setDay($day);
 	
-}while(!$end);
+}
+while(!$end);
 print_r($week->getDays());
