@@ -10,9 +10,8 @@ require_once 'day.php';
 
 class Week {
 	protected $days;
-	private static $week = null;
 
-	private function __construct() {
+	public function __construct() {
 		$this->days = array(
 			new Day(Day::MONDAY),
 			new Day(Day::TUESDAY),
@@ -22,13 +21,6 @@ class Week {
 			new Day(Day::SATURDAY),
 			new Day(Day::SUNDAY)
 		);
-	}
-
-	public static function getWeek(): Week {
-		if (self::$week == null) {
-			self::$week = new Week();
-		}
-		return self::$week;
 	}
 
 	public function getDayByName(string $dayName): Day {
@@ -42,10 +34,10 @@ class Week {
 		return null;
 	}
 
-	public function setDay($newDay) {
+	public function setDay(Day $newDay) {
 		$tempDay = new Day($newDay);
 		for ($i=0; $i<7;++$i) {
-			if ($this->days[$i] instanceof Day && $this->days[$i]->getDayName()==$tempDay->getDayName()) {
+			if ($this->days[$i]->getDayName()==$tempDay->getDayName()) {
 				unset($tempDay);
 				$this->days[$i] = $newDay;
 				return true;

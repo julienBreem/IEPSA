@@ -7,8 +7,7 @@
  */
 
 /* Enoncé
- * Implémenter la logique vue au cours pour le reste du script
- * Conserver les tâches dans un fichiers.
+ * Implémenter une classe pour la gestion de l'application.
  * */
 
 require_once '../Includes/functions.php';
@@ -17,19 +16,20 @@ require_once '../Includes/Classes/DAO/fileInterface.php';
 
 //INITIALISATION VARIABLE
 $handle = fopen("php://stdin", "r");
-$week = Week::getWeek();
+$week = new Week();
 
 //AFFICHAGE TITRE
 output("Task Handler");
 
 //BOUCLE INSERTION
 do {
+	$day = null;
 	do {
-		$day = input("Veuillez introduire un jour de la semaine (Lundi, Mardi, ...) : ", $handle);
-	} while(!$week->getDayByName($day));
+		$day = $week->getDayByName(input("Veuillez introduire un jour de la semaine (Lundi, Mardi, ...) : ", $handle));
+	} while(!$day);
 	$taskName = input("Veuillez introduire une tache pour ce jour là : ", $handle);
 	$taskPriority = input("Veuillez définir la priorité de la tâche: ", $handle);
-	$week->getDayByName($day)->addTask($taskName,$taskPriority);
+	$day->addTask($taskName,$taskPriority);
 } while(input("Voulez-vous continuer à encoder ? (Non pour arrêter) \n Réponse : ", $handle) != "Non");
 
 //AFFICHAGE RESUME
