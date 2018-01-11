@@ -8,7 +8,7 @@ require_once 'includes/classes/day.php';
 $handle = fopen("php://stdin","r");
 
 $week = new Week();
-$defaultTask = new Task('faire le menage');
+$defaultTask = new Task('Faire le menage');
 
 
 $sunday = $week->getDayByName(Day::SUNDAY);
