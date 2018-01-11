@@ -21,7 +21,7 @@ function input(string $str, $handle): string {
 	return null;
 }
 
-function printInFile(Week $week) {
+function printInFile(Week $week): bool {
 	$fileManager = new FileInterface();
 	$fileManager->setResource("C:\\WeekSaveFile.txt");
 	$fileManager->openInWriteMode();
