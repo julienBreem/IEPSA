@@ -40,7 +40,7 @@ class Day {
 	}
 	
 	public function getName(){
-		return $this->name;
+		return ucfirst($this->name);
 	}
 	
 	public function setTasks($tasks){

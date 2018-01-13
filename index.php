@@ -18,20 +18,23 @@ $week->setDay($sunday);
 
 $end = 0;
 do{	
-	$dayName = in("\nWeekday:", $handle);
+	$dayName = in("\nWeekday (0 -> recap):", $handle);
 	if($dayName == '0'){
-		echo "\nGood bye" . PHP_EOL;
 		$end = 1;
 		continue;
 	}
 	$day = $week->getDayByName($dayName);
 	if(empty($day)){
-		echo "\nWrong Weekday!!!!!!!!!!!!!" . PHP_EOL;
+		out("Wrong Weekday!!!!!!!!!!!!!");
 		continue;
 	}
 	$newTask = new Task(in("Task: ", $handle));
 	$day->addTask($newTask);
 	$week->setDay($day);
-	
+    out("");
+	affichage($week->getDayByName($dayName));
 }while(!$end);
-print_r($week->getDays());
+out("");
+foreach ($week->getDays() as $day){
+    affichage($day);
+}
