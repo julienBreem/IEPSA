@@ -10,6 +10,10 @@ function output(string $str): void {
 	echo $str.PHP_EOL;
 }
 
+function blankLine(): void {
+	echo PHP_EOL;
+}
+
 function lowerWithFirstLetterUpper(string $str): string {
 	return ucfirst(strtolower($str));
 }

@@ -7,7 +7,6 @@
  */
 
 require_once 'task.php';
-//require_once '../functions.php';
 
 class Day {
 	const MONDAY = "Lundi";

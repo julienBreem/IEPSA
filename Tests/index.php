@@ -10,31 +10,11 @@
  * Implémenter une classe pour la gestion de l'application.
  * */
 
+require_once '../Includes/Classes/taskManager.php';
 require_once '../Includes/functions.php';
 require_once '../Includes/Classes/DAO/fileInterface.php';
-require_once '../Includes/Classes/week.php';
 
-//INITIALISATION VARIABLE
-$handle = fopen("php://stdin", "r");
-$week = new Week();
-
-//AFFICHAGE TITRE
+//DEBUT PROGRAMME
 output("Task Manager");
 
-//BOUCLE INSERTION
-do {
-	$day = null;
-	do {
-		$day = $week->getDayByName(input("Veuillez introduire un jour de la semaine (Lundi, Mardi, ...) : ", $handle));
-	} while(!$day);
-	$taskName = input("Veuillez introduire une tache pour ce jour là : ", $handle);
-	$taskPriority = input("Veuillez définir la priorité de la tâche: ", $handle);
-	$day->addTask($taskName,$taskPriority);
-} while(strtolower(input("Voulez-vous continuer à encoder ? (Non pour arrêter) \n Réponse : ", $handle)) != "non");
-
-//AFFICHAGE RESUME
-output(PHP_EOL . "Résumé des tâches");
-output($week->recapWeek());
-
-//Print In File
-printInFile($week);
+TaskManager::execute();
