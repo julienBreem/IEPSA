@@ -21,7 +21,7 @@ class Day {
 	public function addTask(Task $task){
 		$this->tasks[] = $task;
 	}
-	
+
 	public function setName($name){
 		$name = strtolower($name);
 		switch($name){
@@ -50,7 +50,4 @@ class Day {
 	public function getTasks(){
 		return $this->tasks;
 	}
-	
-	
-	
 }

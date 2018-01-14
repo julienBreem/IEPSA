@@ -4,34 +4,40 @@ require_once 'includes/classes/task.php';
 require_once 'includes/classes/week.php';
 require_once 'includes/classes/day.php';
 
-
 $handle = fopen("php://stdin","r");
+out("Task Manager",$handle);
 
 $week = new Week();
-$defaultTask = new Task('Faire le menage');
-
-
-$sunday = $week->getDayByName(Day::SUNDAY);
-$oldTasks = $sunday->addTask($defaultTask);
-$week->setDay($sunday);
-
-
 $end = 0;
+
 do{	
-	$dayName = in("\nWeekday:", $handle);
+	$dayName = in("Weekday :", $handle);
 	if($dayName == '0'){
-		echo "\nGood bye" . PHP_EOL;
+		out("Good bye",$handle);
 		$end = 1;
 		continue;
 	}
+
 	$day = $week->getDayByName($dayName);
 	if(empty($day)){
-		echo "\nWrong Weekday!!!!!!!!!!!!!" . PHP_EOL;
+		out("Wrong Weekday!!!!!!!!!!!!!",$handle);
 		continue;
 	}
-	$newTask = new Task(in("Task: ", $handle));
-	$day->addTask($newTask);
-	$week->setDay($day);
 	
+	$taskName=in("Task : ", $handle);
+	if(empty($taskName)){
+		out("Empty Task.",$handle);
+		continue;
+	}
+
+	$priority =in("Task Priority :",$handle);
+	if(empty($priority)){
+		out("Default Priority 0",$handle);
+		$priority=0;
+		continue;
+	}
+
+	addTaskToDayOfWeek($week,$dayName,$taskName,$priority);
 }while(!$end);
+
 print_r($week->getDays());

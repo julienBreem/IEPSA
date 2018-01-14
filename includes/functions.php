@@ -1,6 +1,6 @@
 <?php
 function out(string $outString){
-	echo $outString . PHP_EOL . PHP_EOL;
+	echo $outString .PHP_EOL;
 }
 
 function in(string $inString, $handle) {
@@ -8,8 +8,10 @@ function in(string $inString, $handle) {
 	return trim(fgets($handle));
 }
 
-function addTaskToDayOfWeek($week, $dayName, $task){
+function addTaskToDayOfWeek($week, $dayName, $taskName,$priority){
+	$newTask = new Task($taskName);
+	$newTask->setPriority($priority);
 	$day = $week->getDayByName($dayName);
-	$day->addTask($defaultTask);
+	$day->addTask($newTask);
 	$week->setDay($day);
 }
