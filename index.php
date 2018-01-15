@@ -34,4 +34,12 @@ do{
 	$week->setDay($day);
 	
 }while(!$end);
-print_r($week->getDays());
+//print_r($week->getDays());
+
+for($i=0;$i < 7;$i++)
+{
+    echo ( $week->getDays()[$i]->getName()). PHP_EOL;
+    for($x=0;$x < count($week->getDays()[$i]->getTasks());$x++)
+       echo  ("\t\t".$week->getDays()[$i]->getTask($x)->getName()). PHP_EOL;
+
+}
