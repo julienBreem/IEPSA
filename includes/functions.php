@@ -1,6 +1,6 @@
 <?php
 function out(string $outString){
-	echo $outString . PHP_EOL . PHP_EOL;
+	echo $outString . PHP_EOL;
 }
 
 function in(string $inString, $handle) {

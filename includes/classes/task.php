@@ -17,7 +17,7 @@ class Task {
 	}
 	
 	public function setName($name){
-		$this->name =  ucfirst(strtolower($name));
+		$this->name =  ucfirst(strtolower(trim($name)));
 	}
 	
 	public function getName(){

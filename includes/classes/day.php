@@ -2,13 +2,13 @@
 
 class Day {
 	
-	const MONDAY = 'monday';
-	const TUESDAY = 'tuesday';
-	const WEDNESDAY = 'wednesday';
-	const THURSDAY = 'thursday';
-	const FRIDAY = 'friday';
-	const SATURDAY = 'saturday';
-	const SUNDAY = 'sunday';	
+	const MONDAY = 'Monday';
+	const TUESDAY = 'Tuesday';
+	const WEDNESDAY = 'Wednesday';
+	const THURSDAY = 'Thursday';
+	const FRIDAY = 'Friday';
+	const SATURDAY = 'Saturday';
+	const SUNDAY = 'Sunday';
 	
 	private $name;
 	private $tasks;	
@@ -23,7 +23,7 @@ class Day {
 	}
 	
 	public function setName($name){
-		$name = strtolower($name);
+		$name = ucfirst(strtolower(trim($name)));
 		switch($name){
 			case self::MONDAY:
 			case self::TUESDAY:
