@@ -3,32 +3,34 @@ require_once 'includes/functions.php';
 require_once 'includes/classes/task.php';
 require_once 'includes/classes/week.php';
 require_once 'includes/classes/day.php';
-
-
 $handle = fopen("php://stdin","r");
-echo "Welcome in your taskManager: ";
 $week = new Week();
-$jour = new Day("saturday");
-$defaultTask = new Task('faire le ménage');
-$week->setDay($jour);
-$jour->addTask($defaultTask);
-
+$defaultTask = new Task('faire le menage');
+$sunday = $week->getDayByName(Day::SUNDAY);
+$oldTasks = $sunday->addTask($defaultTask);
+$week->setDay($sunday);
+$end = 0;
 do{
+    $dayName = in("\nWeekday:", $handle);
+    if($dayName == '0'){
+        echo "\nGood bye" . PHP_EOL;
+        $end = 1;
+        continue;
+    }
+    $day = $week->getDayByName($dayName);
+    if(empty($day)){
+        echo "\nWrong Weekday!!!!!!!!!!!!!" . PHP_EOL;
+        continue;
+    }
+    $newTask = new Task(in("Task: ", $handle));
+    $day->addTask($newTask);
+    $week->setDay($day);
 
-    $day = in("Plz enter the day of the week:", $handle);
-    $jour1 =  $week->getDayByName($day);
-    $week->setDay($jour1);
-    $name=in('Plz enter the task name', $handle);
-    $task = new Task ($name);
-    $jour1->addTask($task);
-    $test=in('Plz enter --a-- for stop or --other-- for continue', $handle);
-} while($test == "a");
-
-for( $i=0; $i<count($week->getDays());$i++) {
-
-    //$name=  $week->getDays()[$i]->getTasks()[0]->getName();
-
-    print_r( $week->getDays()[$i]);
+}while(!$end);
+//print_r($week->getDays());
+for($i=0;$i < 7;$i++)
+{
+    echo ( $week->getDays()[$i]->getName()). PHP_EOL;
+    for($x=0;$x < count($week->getDays()[$i]->getTasks());$x++)
+        echo  ("\t\t".$week->getDays()[$i]->getTask($x)->getName()). PHP_EOL;
 }
-out("a bientot");
-//echo $week->getDays()[1]->getTasks()[0]->getName();

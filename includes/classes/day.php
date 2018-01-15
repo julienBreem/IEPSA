@@ -50,7 +50,11 @@ class Day {
 	public function getTasks(){
 		return $this->tasks;
 	}
-	
-	
-	
+
+    public function getTask($index){
+        return $this->tasks[$index];
+    }
+
+
+
 }
