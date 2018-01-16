@@ -13,3 +13,12 @@ function addTaskToDayOfWeek($week, $dayName, $task){
 	$day->addTask($defaultTask);
 	$week->setDay($day);
 }
+
+function displayDay($day, $numberOfTasks) {
+    echo "On " . $day . " " . $numberOfTasks . " task(s) found:" . PHP_EOL;
+}
+
+function displayTask($number, $name, $priority) {
+    echo "\t" . ($number+1) . ") Name: " . $name . PHP_EOL;
+    echo "\t   Priority: " . $priority . PHP_EOL;
+}

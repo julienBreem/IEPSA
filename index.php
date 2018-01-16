@@ -10,7 +10,6 @@ $handle = fopen("php://stdin","r");
 $week = new Week();
 $defaultTask = new Task('faire le menage');
 
-
 $sunday = $week->getDayByName(Day::SUNDAY);
 $oldTasks = $sunday->addTask($defaultTask);
 $week->setDay($sunday);
@@ -35,35 +34,28 @@ do {
         $task->setPriority($taskPriority);
         $validDay->addTask($task);
         $continue = in("Other task (Y/N):", $handle);
-    } while ($continue == 'Y' or $continue == 'y');
+    } while (strtolower($continue) == 'y');
 
     $week->setDay($validDay);
 
     $continue = in("Other day (Y/N):", $handle);
-} while ($continue == 'Y' or $continue == 'y');
+} while (strtolower($continue) == 'y');
 
 echo PHP_EOL;
 out("----------");
 echo PHP_EOL;
 
-$dayList = $week->getDays();
-foreach ($dayList as $dayValue) {
-    $taskList = $dayValue->getTasks();
+foreach ($week->getDays() as $dayValue) {
 
-    if ($taskList != null) {
-        out("On " . $dayValue->getName() . " " . count($taskList) . " task(s) found:");
-        $taskNumber = 0;
-        foreach ($taskList as $taskValue) {
-            $taskNumber++;
-            out("\t" . $taskNumber . ") Name: " . $taskValue->getName());
-            out("\t   Priority: " . $taskValue->getPriority());
+    if ($dayValue->getTasks() != null) {
+        displayDay($dayValue->getName(), count($dayValue->getTasks()));
+        foreach ($dayValue->getTasks() as $taskNumber => $taskValue) {
+            displayTask($taskNumber, $taskValue->getName(), $taskValue->getPriority());
         }
         echo PHP_EOL;
     }
 
 }
-
-//var_dump($week);
 
 out("----------");
 echo PHP_EOL;
