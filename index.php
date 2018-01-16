@@ -48,9 +48,9 @@ echo PHP_EOL;
 foreach ($week->getDays() as $dayValue) {
 
     if ($dayValue->getTasks() != null) {
-        displayDay($dayValue->getName(), count($dayValue->getTasks()));
+        displayDay($dayValue);
         foreach ($dayValue->getTasks() as $taskNumber => $taskValue) {
-            displayTask($taskNumber, $taskValue->getName(), $taskValue->getPriority());
+            displayTask($taskNumber, $taskValue);
         }
         echo PHP_EOL;
     }
