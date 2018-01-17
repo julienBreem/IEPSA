@@ -1,10 +1,12 @@
 <?php
 require_once('day.php');
 
-class Week {
+class Week
+{
 	private $days;
 	
-	public function __construct() {
+	public function __construct()
+    {
         $this->days = [];
 		$this->days[] = new Day(Day::MONDAY);
 		$this->days[] = new Day(Day::TUESDAY);
@@ -14,20 +16,28 @@ class Week {
 		$this->days[] = new Day(Day::SATURDAY);
 		$this->days[] = new Day(Day::SUNDAY);
     }
+
+
+    public function getDayByName(string $dayName): Day
+    {
+        $tempDay = new Day($dayName);
+        foreach ($this->days as $day)
+        {
+            if ($day instanceof Day && $day->getDayName() == $tempDay->getDayName())
+            {
+                unset($tempDay);
+                return $day;
+            }
+        }
+        return null;
+    }
 	
-	public function getDayByName($name){
-		$tempDay = new Day($name);
-		foreach($this->days as $day){
-			if($day->getName() == $tempDay->getName()){
-				return $day;
-			}
-		}
-		return null;
-	}
-	
-	public function setDay(Day $day){
-		for($i = 0; $i < count($this->days); ++$i){
-			if($this->days[$i]->getName() == $day->getName()){
+	public function setDay(Day $day)
+    {
+		for($i = 0; $i < count($this->days); ++$i)
+		{
+			if($this->days[$i]->getName() == $day->getName())
+			{
 				$this->days[$i] = $day;
 				return true;
 			}
@@ -35,7 +45,22 @@ class Week {
 		return false;
 	}
 	
-	public function getDays(){
+	public function getDays()
+    {
 		return $this->days;
 	}
+
+    public function recapWeek() //: string
+    {
+        $recap = "";
+        foreach ($this->days as $day)
+        {
+            if ($day instanceof Day)
+            {
+                $recap .= $day->recapDay();
+            }
+        }
+        return $recap;
+    }
+
 }
