@@ -36,10 +36,10 @@ foreach ($week->getDays() as  $value)
     echo $value->getName(). PHP_EOL;
    foreach ($value->getTasks() as  $values)
     {
-       if($values->getName() != null){
+
         echo  ("\t\t".$values->getName());
         echo("\t\t --> priority : ".$values->getPriority()). PHP_EOL;
-        }
+
     }
 
 }
