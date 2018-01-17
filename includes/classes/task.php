@@ -23,4 +23,10 @@ class Task {
 	public function getName(){
 		return $this->name;
 	}
+
+    public function displayTask($taskNumber) {
+        echo "\t" . ($taskNumber+1) . ") Name: " . $this->getName() . PHP_EOL;
+        echo "\t   Priority: " . $this->getPriority() . PHP_EOL;
+    }
+
 }

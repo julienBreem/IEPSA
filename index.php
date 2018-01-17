@@ -45,12 +45,28 @@ echo PHP_EOL;
 out("----------");
 echo PHP_EOL;
 
+// Affichage via fonction
+/*
 foreach ($week->getDays() as $dayValue) {
 
     if ($dayValue->getTasks() != null) {
         displayDay($dayValue);
         foreach ($dayValue->getTasks() as $taskNumber => $taskValue) {
             displayTask($taskNumber, $taskValue);
+        }
+        echo PHP_EOL;
+    }
+
+}
+*/
+
+// Affichage via methode
+foreach ($week->getDays() as $dayValue) {
+
+    if ($dayValue->getTasks() != null) {
+        $dayValue->displayDay();
+        foreach ($dayValue->getTasks() as $taskNumber => $taskValue) {
+            $taskValue->displayTask($taskNumber);
         }
         echo PHP_EOL;
     }

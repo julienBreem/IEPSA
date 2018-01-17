@@ -38,4 +38,5 @@ class Week {
 	public function getDays(){
 		return $this->days;
 	}
+
 }

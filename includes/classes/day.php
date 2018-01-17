@@ -50,7 +50,9 @@ class Day {
 	public function getTasks(){
 		return $this->tasks;
 	}
-	
-	
+
+    public function displayDay(){
+        echo "On " . $this->getName() . " " . count($this->getTasks()) . " task(s) found:" . PHP_EOL;
+    }
 	
 }
