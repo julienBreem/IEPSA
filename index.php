@@ -30,14 +30,16 @@ do{
     $week->setDay($day);
 
 }while(!$end);
-//print_r($week->getDays());
-for($i=0;$i < 7;$i++)
+
+foreach ($week->getDays() as  $value)
 {
-    echo ( $week->getDays()[$i]->getName()). PHP_EOL;
-    for( $x=0;$x < count($week->getDays()[$i]->getTasks());$x++)
+    echo $value->getName(). PHP_EOL;
+   foreach ($value->getTasks() as  $values)
     {
-        echo  ("\t\t".$week->getDays()[$i]->getTask($x)->getName());
-          echo("\t\t --> priority : ".$week->getDays()[$i]->getTask($x)->getPriority()). PHP_EOL;
+       if($values->getName() != null){
+        echo  ("\t\t".$values->getName());
+        echo("\t\t --> priority : ".$values->getPriority()). PHP_EOL;
+        }
     }
 
 }
