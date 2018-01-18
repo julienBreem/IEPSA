@@ -11,6 +11,6 @@ $taskManager = new TaskManager();
 
 $end = 0;
 do{	
-	mainMenu($handle, $taskManager);
+	$end = mainMenu($handle, $taskManager);
 	
 }while($end == 0);

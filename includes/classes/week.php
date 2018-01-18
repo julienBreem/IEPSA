@@ -16,7 +16,7 @@ class Week {
     }
 	
 	public function getDayByName($name){
-		$day = formatStr($name);
+		$day = strtolower($name);
 		if($this->isWeekDay($day))
 		{
 			return $this->days[$day];
@@ -40,7 +40,7 @@ class Week {
 	}
 	public function isWeekDay($day)
 	{
-		$day = formatStr($day);
+		$day = strtolower($day);
 		return in_array($day, array_keys($this->days));
 	}
 }

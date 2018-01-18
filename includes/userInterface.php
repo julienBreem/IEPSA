@@ -1,6 +1,8 @@
 <?php
 mb_internal_encoding('UTF-8');
-require_once 'includes/functions.php';
+require_once 'functions.php';
+require_once 'includes/classes/week.php';
+require_once 'includes/classes/task.php';
 
 function mainMenu($handle, $taskManager)
 {
@@ -13,26 +15,29 @@ function mainMenu($handle, $taskManager)
 	}
 	elseif($choice == 2)
 	{
-		$day = getDayDetails($taskManager->getWeek(0));
+		$day = getDayDetails($taskManager->getWeek(0), $handle);
 		
 		
-		$task = getTaskDetails($taskManager);
+		$task = getTaskDetails($taskManager, $handle);
 		if($task != null)
 		{
-			$taskManager->addTask(0, $day, $task);
+			$taskManager->addWeekTask(0, $day, $task);
 		}
 	}
 	else
-		return 0;
+	{
+		out('See you soon (space cowboy)');
+		return 1;
+	}
 }
 
-function getDayDetails($week)
+function getDayDetails($week, $handle)
 {
 	$end = 0;
 	do{
 		out('Please enter the day for the task.');
 		$dayName = in('0 or nothing will cancel the addition of the task', $handle);
-		if($week->isWeekDay($day))
+		if($week->isWeekDay($dayName))
 		{
 			$end = 1;
 		}
@@ -48,10 +53,10 @@ function getDayDetails($week)
 			$end = 1;
 		}
 	} while($end == 0);
-	return $dayname;
+	return $dayName;
 }
 
-function getTaskDetails($taskManager)
+function getTaskDetails($taskManager, $handle)
 {
 	$task = null;
 	out('Enter the task name.');

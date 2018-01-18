@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/classes/task.php';
 require_once 'includes/classes/week.php';
-require_once 'day.php';
+require_once 'includes/classes/day.php';
 
 class TaskManager
 {
@@ -26,13 +26,13 @@ class TaskManager
 	les ajouts futurs tels que potentiellement mois, date etc*/
 	public function addWeekTask($weekIndex, $day, Task $task)
 	{
-		$week = $weeks[$weekIndex];
+		$week = $this->weeks[$weekIndex];
 		$week->getDayByName($day)->addTask($task);
 	}
 	
 	public function getWeek($index)
 	{
-		return $this->weeks[index];
+		return $this->weeks[$index];
 	}
 }
 ?>
