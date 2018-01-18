@@ -6,23 +6,23 @@ class Week {
 	
 	public function __construct() {
         $this->days = [];
-		$this->days[] = new Day(Day::MONDAY);
-		$this->days[] = new Day(Day::TUESDAY);
-		$this->days[] = new Day(Day::WEDNESDAY);
-		$this->days[] = new Day(Day::THURSDAY);
-		$this->days[] = new Day(Day::FRIDAY);
-		$this->days[] = new Day(Day::SATURDAY);
-		$this->days[] = new Day(Day::SUNDAY);
+		$this->days[Day::MONDAY] = new Day(Day::MONDAY);
+		$this->days[Day::TUESDAY] = new Day(Day::TUESDAY);
+		$this->days[Day::WEDNESDAY] = new Day(Day::WEDNESDAY);
+		$this->days[Day::THURSDAY] = new Day(Day::THURSDAY);
+		$this->days[Day::FRIDAY] = new Day(Day::FRIDAY);
+		$this->days[Day::SATURDAY] = new Day(Day::SATURDAY);
+		$this->days[Day::SUNDAY] = new Day(Day::SUNDAY);
     }
 	
 	public function getDayByName($name){
-		$tempDay = new Day($name);
-		foreach($this->days as $day){
-			if($day->getName() == $tempDay->getName()){
-				return $day;
-			}
+		$day = formatStr($name);
+		if($this->isWeekDay($day))
+		{
+			return $this->days[$day];
 		}
-		return null;
+		else
+			return NULL;
 	}
 	
 	public function setDay(Day $day){
@@ -37,5 +37,10 @@ class Week {
 	
 	public function getDays(){
 		return $this->days;
+	}
+	public function isWeekDay($day)
+	{
+		$day = formatStr($day);
+		return in_array($day, array_keys($this->days));
 	}
 }
